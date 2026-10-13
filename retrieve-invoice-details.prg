@@ -25,7 +25,6 @@
 ///
 //////////////////////////////////////////////////////////////////////
 
-#include "..\agentic-ai-core.ch"
 #include "common.ch"
 
 // 1. Define what you want the model to return

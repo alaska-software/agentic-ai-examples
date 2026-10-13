@@ -31,7 +31,6 @@
 ///
 //////////////////////////////////////////////////////////////////////
 
-#include "..\agentic-ai-core.ch"
 #include "common.ch"
 
 PROCEDURE Main( cConfigFile )

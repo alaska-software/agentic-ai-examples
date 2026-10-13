@@ -31,8 +31,9 @@
 ///
 //////////////////////////////////////////////////////////////////////
 
-#include "..\agentic-ai-core.ch"
 #include "common.ch"
+
+#define CRLF Chr(13)+Chr(10)
 
 CLASS ComplaintHandlerAgent FROM AbstractAgent
    EXPORTED:

@@ -6,7 +6,7 @@
     RUNENV.FILE = .env
     AUX.FILE = readme.md
     
-[Project.xpj]
+[project.xpj]
     sql-generator-agent-registered.exe
     sql-generator-agent-retry.exe
     support-triage-agent.exe
@@ -29,6 +29,8 @@
     INTERMEDIATE_DEBUG   = .debug
     INTERMEDIATE_RELEASE = .release
     TARGET_DIR           = .\.
+    DEPENDS_ON           = $(ASSETS_PATH)\agentic-ai-core
+    DEPENDS_ON           = $(ASSETS_PATH)\http-streams
 // $START-AUTODEPEND
     sql-generator-agent-common.obj
     sql-generator-agent-registered.obj
@@ -50,6 +52,8 @@
     INTERMEDIATE_DEBUG   = .debug
     INTERMEDIATE_RELEASE = .release
     TARGET_DIR           = .\.
+    DEPENDS_ON           = $(ASSETS_PATH)\agentic-ai-core
+    DEPENDS_ON           = $(ASSETS_PATH)\http-streams
 // $START-AUTODEPEND
     sql-generator-agent-common.obj
     sql-generator-retry-main.obj
@@ -69,6 +73,8 @@
     INTERMEDIATE_DEBUG   = .debug
     INTERMEDIATE_RELEASE = .release
     TARGET_DIR           = .\.
+    DEPENDS_ON           = $(ASSETS_PATH)\agentic-ai-core
+    DEPENDS_ON           = $(ASSETS_PATH)\http-streams
 // $START-AUTODEPEND
     support-triage-agent.obj
     support-triage-agent-common.obj
@@ -92,6 +98,8 @@
     INTERMEDIATE_DEBUG   = .debug
     INTERMEDIATE_RELEASE = .release
     TARGET_DIR           = .\.
+    DEPENDS_ON           = $(ASSETS_PATH)\agentic-ai-core
+    DEPENDS_ON           = $(ASSETS_PATH)\http-streams
 // $START-AUTODEPEND
 // $STOP-AUTODEPEND
     complaint-handler-agent.prg
@@ -112,6 +120,8 @@
     INTERMEDIATE_DEBUG   = .debug
     INTERMEDIATE_RELEASE = .release
     TARGET_DIR           = .\.
+    DEPENDS_ON           = $(ASSETS_PATH)\agentic-ai-core
+    DEPENDS_ON           = $(ASSETS_PATH)\http-streams
 // $START-AUTODEPEND
 // $STOP-AUTODEPEND
     product-desc-common.prg
@@ -131,6 +141,8 @@
     INTERMEDIATE_DEBUG   = .debug
     INTERMEDIATE_RELEASE = .release
     TARGET_DIR           = .\.
+    DEPENDS_ON           = $(ASSETS_PATH)\agentic-ai-core
+    DEPENDS_ON           = $(ASSETS_PATH)\http-streams
     retrieve-invoice-details.prg
 
 [ticket-router.exe]
@@ -145,6 +157,8 @@
     INTERMEDIATE_DEBUG   = .debug
     INTERMEDIATE_RELEASE = .release
     TARGET_DIR           = .\.
+    DEPENDS_ON           = $(ASSETS_PATH)\agentic-ai-core
+    DEPENDS_ON           = $(ASSETS_PATH)\http-streams
     ticket-router.prg
 
 [calculator-tool.exe]
@@ -159,6 +173,8 @@
     INTERMEDIATE_DEBUG   = .debug
     INTERMEDIATE_RELEASE = .release
     TARGET_DIR           = .\.
+    DEPENDS_ON           = $(ASSETS_PATH)\agentic-ai-core
+    DEPENDS_ON           = $(ASSETS_PATH)\http-streams
 // $START-AUTODEPEND
 // $STOP-AUTODEPEND
     calculator-tool-common.prg
@@ -178,6 +194,8 @@
     INTERMEDIATE_DEBUG   = .debug
     INTERMEDIATE_RELEASE = .release
     TARGET_DIR           = .\.
+    DEPENDS_ON           = $(ASSETS_PATH)\agentic-ai-core
+    DEPENDS_ON           = $(ASSETS_PATH)\http-streams
 // $START-AUTODEPEND
 // $STOP-AUTODEPEND
     northwind-analyst-main.prg

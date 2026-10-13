@@ -14,9 +14,10 @@
 ///
 //////////////////////////////////////////////////////////////////////
 
-#include "..\agentic-ai-core.ch"
 #include "common.ch"
 #include "dac.ch"
+
+#define CRLF Chr(13)+Chr(10)
 
 // ---------------------------------------------------------------------------
 // Domain / blackboard types

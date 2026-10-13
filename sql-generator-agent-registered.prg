@@ -22,7 +22,6 @@
 ///
 //////////////////////////////////////////////////////////////////////
 
-#include "..\agentic-ai-core.ch"
 #include "common.ch"
 
 CLASS SqlGeneratorAgent FROM AbstractAgent
