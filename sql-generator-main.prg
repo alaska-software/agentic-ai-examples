@@ -20,32 +20,35 @@
 //////////////////////////////////////////////////////////////////////
 
 PROCEDURE Main()
-  LOCAL oAgent  := SqlGeneratorAgent():New( DemoDataModel():New() )
-  LOCAL oCtx    := AgentContext():New()
-  LOCAL oResult
-  LOCAL oError
-  LOCAL cQuestion
+   LOCAL oAgent  := SqlGeneratorAgent():New( DemoDataModel():New() )
+   LOCAL oCtx    := AgentContext():New()
+   LOCAL oResult
+   LOCAL oError
+   LOCAL aQuestion, cQuestion, n
 
    SET CHARSET TO ANSI
 
-   cQuestion := "Welches sind meine 5 besten kunden?" // "Who are my top 5 customers?" // "Wieviel Kunden habe ich" // "How many customers do i have"
-   oCtx:set( "userInput", UserInput():New( cQuestion ) )
+   aQuestion := { "Welches sind meine 5 besten kunden?", "Who are my top 5 customers?" }
+   FOR n:=1 TO Len(aQuestion)
 
-   BEGIN SEQUENCE
-      oResult := AgentStateMachine():forAgent( oAgent ):run( oCtx )
+      cQuestion := aQuestion[n]
+      oCtx:set( "userInput", UserInput():New( cQuestion ) )
 
-      IF oResult:get( "result" ) == NIL
-         // reached the "failed" terminal: report why the SQL never validated
-         ? "SQL generation failed:", ;
-           If( oResult:get( "validation" ) != NIL, oResult:get( "validation" ):Error, "no result" )
-      ELSE
-         ? "Question:    ", cQuestion
-         ? "SQL:         ", oResult:get( "result" ):Sql
-         ? "Explanation: ", oResult:get( "result" ):Explanation
-      ENDIF
-   RECOVER USING oError
-      // e.g. the LLM call failed (no API key / transport / unparseable reply)
-      ? "SQL generation failed:", oError:description
-   END SEQUENCE
+      BEGIN SEQUENCE
+         oResult := AgentStateMachine():forAgent( oAgent ):run( oCtx )
 
+         IF oResult:get( "result" ) == NIL
+            // reached the "failed" terminal: report why the SQL never validated
+            ? "SQL generation failed:", ;
+               If( oResult:get( "validation" ) != NIL, oResult:get( "validation" ):Error, "no result" )
+         ELSE
+            ? "Question:    ", cQuestion
+            ? "SQL:         ", oResult:get( "result" ):Sql
+            ? "Explanation: ", oResult:get( "result" ):Explanation
+         ENDIF
+      RECOVER USING oError
+         // e.g. the LLM call failed (no API key / transport / unparseable reply)
+         ? "SQL generation failed:", oError:description
+      END SEQUENCE
+   NEXT n
 RETURN

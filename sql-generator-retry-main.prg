@@ -28,40 +28,41 @@
 
 PROCEDURE Main()
    LOCAL oDM       := DemoDataModel():New()
-   LOCAL cQuestion := "Wieviel Kunden habe ich in jedem Land?"  // "How many customers do I have?"
-   LOCAL oAgent
-   LOCAL xResult
-   LOCAL oError
+   LOCAL aQuestion := { "Wieviel Kunden habe ich in jedem Land?", "How many customers do I have in each country?" }
+   LOCAL cQuestion,n
+   LOCAL oAgent, xResult, oError
 
    SET CHARSET TO ANSI
 
-   oAgent := RetryAgent():create() ;
-              :withDefaultLLM( LLMOptions():withModel( OpenAiModels():GPT_41 ):withTemperature( 0 ) ) ;
-              :withDefaultPersona( SqlPersonas():generator() ) ;
-              :withDefaultPersona( SchemaContributor():New( oDM ) ) ;
-              :withOutputClass( "SqlQuery" ) ;
-              :withProducerTask( 'Answer this question with a SQL SELECT: "' + cQuestion + '"' ) ;
-              :withValidator( {|oQ| If( SqlSyntaxError( oQ:Sql ) == NIL, ;
-                                        ValidationResult():ok(), ;
-                                        ValidationResult():fail( SqlSyntaxError( oQ:Sql ) ) ) } ) ;
-              :withMaxAttempts( 3 )
+   FOR n=1 TO Len(aQuestion)
+      cQuestion := aQuestion[n]
+      oAgent := RetryAgent():create() ;
+               :withDefaultLLM( LLMOptions():withModel( OpenAiModels():GPT_41 ):withTemperature( 0 ) ) ;
+               :withDefaultPersona( SqlPersonas():generator() ) ;
+               :withDefaultPersona( SchemaContributor():New( oDM ) ) ;
+               :withOutputClass( "SqlQuery" ) ;
+               :withProducerTask( 'Answer this question with a SQL SELECT: "' + cQuestion + '"' ) ;
+               :withValidator( {|oQ| If( SqlSyntaxError( oQ:Sql ) == NIL, ;
+                                          ValidationResult():ok(), ;
+                                          ValidationResult():fail( SqlSyntaxError( oQ:Sql ) ) ) } ) ;
+               :withMaxAttempts( 3 )
 
-   BEGIN SEQUENCE
+      BEGIN SEQUENCE
 
-      xResult := oAgent:run( cQuestion )
+         xResult := oAgent:run( cQuestion )
 
-      ? "Question: ", cQuestion
+         ? "Question: ", cQuestion
 
-      IF oAgent:getLastState() == "done"
-         ? "SQL:      ", xResult:Sql
-      ELSE
-         ? "SQL generation failed after", oAgent:getMaxAttempts(), "attempt(s)."
-         ? "(No explanation step — see sql-generator-agent-registered.prg for Stage 5B.)"
-      ENDIF
+         IF oAgent:getLastState() == "done"
+            ? "SQL:      ", xResult:Sql
+         ELSE
+            ? "SQL generation failed after", oAgent:getMaxAttempts(), "attempt(s)."
+            ? "(No explanation step — see sql-generator-agent-registered.prg for Stage 5B.)"
+         ENDIF
 
-   RECOVER USING oError
-      ? "SQL generation failed:", oError:description
-   END SEQUENCE
-
+      RECOVER USING oError
+         ? "SQL generation failed:", oError:description
+      END SEQUENCE
+   NEXT n
 RETURN
 
