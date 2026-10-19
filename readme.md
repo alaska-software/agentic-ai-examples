@@ -59,24 +59,35 @@ call apikey.bat
 sql-generator-agent-registered.exe
 ```
 
-`apikey.bat` is a plain template for the `SET` statements shown in the next section —
-edit it with your own keys and call it before running an example if you'd rather use
-your own OpenAI, Anthropic, or Mistral account.
+By default, the Agentic AI Core framework resolves every LLM call through the
+Alaska Software LLM Router, free of charge for any active Xbase++ V3 license — no key
+needed. To use your own OpenAI, Anthropic, or Mistral account instead, set the
+matching environment variable before running an example — `OPENAI_API_KEY`,
+`ANTHROPIC_API_KEY`, or `MISTRAL_API_KEY`.
+
+The easiest way is to keep those `SET` statements in a file named `apikey.bat`
+(already listed in `.gitignore`, so your key never gets committed), fill in your own
+key(s), and call it before running an example, as shown above. A plain template:
+
+```bat
+@echo off
+REM Only set the ones you actually want to use — any left blank/unset falls back
+REM to the free Alaska Software LLM Router.
+SET OPENAI_API_KEY=<put-your-openai-key-here>
+SET ANTHROPIC_API_KEY=<put-your-anthropic-key-here>
+SET MISTRAL_API_KEY=<put-your-mistral-key-here>
+```
+
+Alternatively, supply the key programmatically on the LLM options for a single call
+or agent, e.g.
+`LLMOptions():withModel( AnthropicModels():CLAUDE_SONNET_4_6 ):withApiKey( cMyKey )`.
 
 ## LLM / AI Model Usage
 
 The samples call OpenAI, Mistral, and Anthropic models side by side — check the header
 comment of each `*-main.prg` to see which provider and model that particular example
-expects.
-
-By default, the Agentic AI Core framework resolves every LLM call through the
-Alaska Software LLM Router. To use your own provider API keys instead, either:
-
-- Set the matching environment variable before running an example —
-  `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, or `MISTRAL_API_KEY` — for instance by
-  editing and calling `apikey.bat`, or
-- Supply the key programmatically on the LLM options for a single call or agent,
-  e.g. `LLMOptions():withModel( AnthropicModels():CLAUDE_SONNET_4_6 ):withApiKey( cMyKey )`.
+expects. See **2b. (Optional) Use your own API key** above for how to switch from the
+free Alaska Software LLM Router to your own provider account.
 
 Whichever LLM call fails — wrong key, no network, rate limit — every example catches
 the error with `BEGIN SEQUENCE … RECOVER USING oError`, prints a clean message, and
