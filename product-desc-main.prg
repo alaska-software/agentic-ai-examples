@@ -50,9 +50,10 @@ PROCEDURE Main( cConfigFile )
                 "Weave all key features naturally into the text. "                   + ;
                 "Match the tone to the stated price point and target audience. "     + ;
                 "Close with one motivating sentence. "                               + ;
-                "Stay within the specified word limit.", ;
+                "Stay within the specified word limit."                              + ;
+                "Match product description language with feature and audience" , ;
                 ProductPersonas():writer(), ;
-                LLMOptions():withModel( AnthropicModels():CLAUDE_HAIKU_4_5 ):withTemperature( 0.7 ) ) ;
+                LLMOptions():withModel( AnthropicModels():CLAUDE_SONNET_4_6 ):withTemperature( 0.7 ) ) ;
              :withCritic( ;
                 "Accept the description only when ALL of the following hold: "       + ;
                 "(1) the opening sentence leads with a customer benefit, not the product name; " + ;
