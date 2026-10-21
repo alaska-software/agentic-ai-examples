@@ -48,7 +48,7 @@ METHOD SqlGeneratorAgent:init( oDataModel, nMaxAttempts )
    ::AbstractAgent:init()
    ::DataModel   := oDataModel
    ::MaxAttempts := nMaxAttempts
-   ::withDefaultLLM( LLMOptions():withModel( OpenAiModels():GPT_41 ):withTemperature( 0 ) )
+   ::withDefaultLLM( LLMOptions():withModel( OpenAiModels():GPT_5_MINI ) )
 RETURN Self
 
 
@@ -138,7 +138,7 @@ METHOD SqlGeneratorAgent:buildResult( oCtx )
    ENDIF
 
    oRunner      := oCtx:ai() ;
-                   :withLLM( LLMOptions():withModel( OpenAiModels():GPT_41_MINI ) ) ;
+                   :withLLM( LLMOptions():withModel( OpenAiModels():GPT_5_MINI ) ) ;
                    :withPromptContributor( SqlPersonas():explainer() )
    cExplanation := oRunner:generateText( "Explain in one sentence what this SQL does: " + oSqlQuery:Sql )
 

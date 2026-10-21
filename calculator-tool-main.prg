@@ -71,7 +71,7 @@ PROCEDURE Main( cConfigFile )
 
 
    oLLMOptions := LLMOptions():withModel( AnthropicModels():CLAUDE_HAIKU_4_5 )
-   //oLLMOptions := LLMOptions():withModel( OpenAiModels():GPT_41_MINI )
+   //oLLMOptions := LLMOptions():withModel( OpenAiModels():GPT_5_MINI )
    //oLLMOptions := LLMOptions():withModel( MistralModels():MISTRAL_SMALL )
 
    // -----------------------------------------------------------------------

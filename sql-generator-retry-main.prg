@@ -37,7 +37,7 @@ PROCEDURE Main()
    FOR n=1 TO Len(aQuestion)
       cQuestion := aQuestion[n]
       oAgent := RetryAgent():create() ;
-               :withDefaultLLM( LLMOptions():withModel( OpenAiModels():GPT_41 ):withTemperature( 0 ) ) ;
+               :withDefaultLLM( LLMOptions():withModel( OpenAiModels():GPT_5_MINI ) ) ;
                :withDefaultPersona( SqlPersonas():generator() ) ;
                :withDefaultPersona( SchemaContributor():New( oDM ) ) ;
                :withOutputClass( "SqlQuery" ) ;
